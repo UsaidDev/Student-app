@@ -31,12 +31,27 @@ def process_data(): # Do next task's
     details=student_detail()
     if details:
        student,age,location=details
-       print("\n"+student+"\n"+age+"\n"+location+"\n")
-       
-       return None
+       Near_By=nearby_school()
+
+       if Near_By == "1":# 1=1
+           Sub=subject_selection()
+           if Sub == "1":
+               data=[{
+               "Name":student,
+               "Age":age,
+               "Location":location,
+               "School":"Loyola School",
+               "Subject":"Science"
+           }]
+               showindex = range(1, len(data)+1)
+               print(tabulate(data, headers='keys', tablefmt='fancy_grid', showindex=showindex))
+           else:
+                print("Subject not selected.")
+       else:
+           print("Not near a school")    
     else:
-       print("Enterd value is invalid")
-       return None
+        print("Invalid details.")
+
 
 def nearby_school():
     print("Please select nearby school")
