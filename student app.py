@@ -1,7 +1,6 @@
 from tabulate import tabulate
 
 def student_detail():
-
     student=input("Enter your name🎉:")
     if not student.strip().replace(" ", "").isalpha():
         print("❌ Name should have only letters")
@@ -27,8 +26,8 @@ def student_detail():
             return None
     return student,age,location
 
-def process_data(): # Do next task's
-    total_details=int(input("How many students do you want to enter? "))
+def process_data(): 
+    total_details=int(input("How many students do you want to enter?"))
     all_data= [] #Store all student info
 
     for _ in range(total_details):
