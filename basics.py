@@ -28,30 +28,37 @@ def student_detail():
     return student,age,location
 
 def process_data(): # Do next task's
-    details=student_detail()
-    if details:
-       student,age,location=details
-       Near_By=nearby_school()
+    total_details=int(input("How many students do you want to enter? "))
+    all_data= [] #Store all student info
 
-       if Near_By == "1":# 1=1
-           Sub=subject_selection()
-           if Sub == "1":
-               data=[{
-               "Name":student,
-               "Age":age,
-               "Location":location,
-               "School":"Loyola School",
-               "Subject":"Science"
-           }]
-               showindex = range(1, len(data)+1)
-               print(tabulate(data, headers='keys', tablefmt='fancy_grid', showindex=showindex))
-           else:
-                print("Subject not selected.")
-       else:
-           print("Not near a school")    
+    for _ in range(total_details):
+        details=student_detail()
+        if details:
+            student, age, location =details
+            school = nearby_school()
+            if not school:
+                print("Invalid school selection")
+                continue
+            subject=subject_selection()
+            if not subject:
+                print("Invalid selection")
+                continue
+
+            entry={
+                "Name":student,
+                "Age":age,
+                "Loaction":location,
+                "School":school,
+                "Subject":subject
+            }
+            all_data.append(entry)
+        else:
+            print("Invaild details")
+
+    if all_data:
+        print(tabulate(all_data, headers='keys', tablefmt='fancy_grid',showindex = range(1, len(all_data)+1)))
     else:
-        print("Invalid details.")
-
+        print("No valid student data entered.")
 
 def nearby_school():
     print("Please select nearby school")
@@ -59,6 +66,13 @@ def nearby_school():
     print("2:-Kendriya Vidyalaya school")
     print("3:-Arya Central School")
     choise=input('Please select the school number:')
+
+    if choise == "1":
+        return "Loyola School"
+    if choise == "2":
+        return "Kendriya School"
+    if choise == "3":
+        return "Arya Central School"
     return choise
 
 def subject_selection():
@@ -67,6 +81,14 @@ def subject_selection():
     print("2:Commerce")
     print("3:Humanities")
     subject=input("Please select the subject number:")
+
+    if subject == "1":
+        return "Science"
+    if subject == "2":
+        return "Commerce"
+    if subject == "3":
+        return "Humanities"
     return subject
 
-process_data()
+if __name__ == "__main__":
+    process_data()
